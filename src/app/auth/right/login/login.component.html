@@ -1,0 +1,36 @@
+<div class="container">
+    <h2 class="text-xl font-bold mb-6 text-indigo-600">Welcome to <span class="font-bold">Design</span></h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+            <label for="userName" class="block text-sm font-medium mb-1">User Name</label>
+            <input id="userName" type="text" placeholder="jillapavi@9043"
+                class="w-full border border-gray-300 rounded-md p-2"   formControlName="userName" autofocus />
+        </div>
+        <div class="mb-2">
+            <label for="password" class="block text-sm font-medium mb-1">Password</label>
+            <input id="password" type="password" placeholder="********" formControlName="password"
+                class="w-full border border-gray-300 rounded-md p-2" />
+        </div>
+       <div class="mb-2">
+            <label for="userRole" class="block text-sm font-medium mb-1">User Role</label>
+            <select id="userRole" formControlName="userRole" class="w-full border border-gray-300 rounded-md p-2">
+                <option></option>
+                <option value="1">General User</option>
+                <option value="2">Admin</option>
+            </select>
+        </div>
+        <div class="flex justify-between items-center mb-6 text-sm text-gray-500">
+            <label class="flex items-center gap-2">
+            </label>
+            <button class="hover:text-indigo-600" (click)="forgetPassword()">Forgot Password?</button>
+        </div>
+        <button type="submit"
+            class="mt-6 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+            Login
+        </button>
+    </form>
+
+    <p class="mt-t text-center text-sm text-gray-500">
+        Don't have an account? <button class="text-indigo-600 hover:underline" (click)="register()">Register</button>
+    </p>
+</div>
