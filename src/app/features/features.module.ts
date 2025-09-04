@@ -6,6 +6,7 @@ import { LayoutModule } from "src/app/layout/layout.module";
 import { FeaturesRoutingModule } from './features-routing.module';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -19,10 +20,10 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
     CommonModule,
     SharedModule,
     LayoutModule,
-    FeaturesRoutingModule
+    FeaturesRoutingModule,
 ],
   exports:[
     DashboardComponent
-  ]
+  ],
 })
 export class FeaturesModule { }

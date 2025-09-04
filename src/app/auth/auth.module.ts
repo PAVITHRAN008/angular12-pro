@@ -7,7 +7,6 @@ import { LeftComponent } from './left/left.component';
 import { RightComponent } from './right/right.component';
 import { SharedModule } from '../shared/shared.module';
 import { SignupComponent } from './right/signup/signup.component';
-import { RightRoutingModule } from './right/right-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotComponent } from './right/forgot/forgot.component';
 
@@ -25,7 +24,6 @@ import { ForgotComponent } from './right/forgot/forgot.component';
   imports: [
     CommonModule,
     AuthRouteingModule,
-    RightRoutingModule,
     SharedModule,
     ReactiveFormsModule
   ]

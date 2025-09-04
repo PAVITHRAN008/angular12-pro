@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpService } from 'src/app/core/services/httpService';
 
 
 @Component({
@@ -7,29 +9,53 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
- @Output() openDialog = new EventEmitter<any>();
-  constructor() { }
+  deleteModalOpen = false;
+  selectedUser: any = null;
+  @Output() openDialog = new EventEmitter<any>();
+  @Input()users:any;
+  @Input() userStateData: any;
+  userRole:any
+  adminUserName:any
+  constructor(private http: HttpService,private router:Router) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    if (this.userStateData != undefined) {
+      this.adminUserName = this.userStateData.userName;
+      this.userRole = this.userStateData.userRoleId;
+    }
   }
-users = [
-    { name: 'John Michael', role: 'Manager', createdDate: '23/04/18' },
-    { name: 'Alexa Liras', role: 'Developer', createdDate: '12/06/19' },
-    { name: 'Laurent Perrier', role: 'Admin', createdDate: '04/01/21' }
-  ];
 
   editUser(user: any) {
-     let data:any={};
-    data.isAction='edit';
-    data.tableRow=user;
-    console.log('Edit user:', user);
+    let data: any = {};
+    data.isAction = 'edit';
+    data.tableRow = user;
     this.openDialog.emit(data);
   }
-  deleteUser(user: any) {
-    let data:any={};
-    data.isAction='delete';
-    data.tableRow=user;
-    console.log('Delete user:', user);
-    this.openDialog.emit(data);
+  openDeleteModal(user: any) {
+    this.selectedUser = null;
+    this.selectedUser = user;
+    this.deleteModalOpen = true;
+  }
+  deleteUser() {
+    if (this.selectedUser) {
+      this.deleteModalOpen = false;
+      this.deleteUserApi(this.selectedUser)
+    }
+  }
+  deleteUserApi(selectedUser:any){
+    let data:any={
+      id:selectedUser._id,
+      isDelete:true
+    }
+    this.http.deleteUser(data).subscribe((res:any)=>{
+     if(res.success){
+      this.dashboard()
+     }
+    })
+  }
+  dashboard() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/auth/dashboard']);
+    });
   }
 }

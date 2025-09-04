@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/authGuard.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
     {
     path: 'auth',
-    loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)
+    loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule),
+    canLoad: [AuthGuard] 
   },
   { path: '**', redirectTo: 'pre-auth' }
 ];

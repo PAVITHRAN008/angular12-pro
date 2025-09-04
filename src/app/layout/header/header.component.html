@@ -8,7 +8,7 @@
 
     <div class="flex items-center space-x-3 menu-container">
       <div>
-        <p class="text-xs text-gray-500 dark:text-gray-400">Role: Admin</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Role: {{userRole}}</p>
       </div>
 
       <button (click)="toggleMenu()"
@@ -19,22 +19,21 @@
 
       <div *ngIf="menuOpen" class="absolute right-4 top-14 w-48 bg-white rounded-lg shadow-lg dark:bg-gray-700 z-50">
         <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-600">
-          <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-          <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+          <span class="block text-sm text-gray-900 dark:text-white">{{userName}}</span>
+          <!-- <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span> -->
         </div>
         <ul class="py-2">
-          <li (click)="createUser()"
+          <li (click)="dashboard()"
             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
             <button>Dashboard</button></li>
-          <li (click)="createUser()"
+          <li *ngIf="userRole=='Admin'" (click)="createUser()"
             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200"><button>Create
               User</button></li>
-          <li (click)="createUser()"
+          <li (click)="changePassword()"
             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200"><button>Change
               Password</button></li>
           <li (click)="signOut()"
-            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200"><button>Sign
-              out</button></li>
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200"><button>Logout</button></li>
         </ul>
       </div>
     </div>

@@ -1,4 +1,4 @@
-<app-header (openDialog)="handleDialog($event)"></app-header>
+<app-header [userStateData]="userDetails" (openDialog)="handleDialog($event)"></app-header>
 <div class="p-4 m-10">
-<app-table (openDialog)="handleDialog($event)"></app-table>
+<app-table [userStateData]="userDetails" (openDialog)="handleDialog($event)" [users]="tableData"></app-table>
 </div>

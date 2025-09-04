@@ -1,8 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+//@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 /* Import Tailwind CSS using PostCSS syntax, not SCSS */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 html, body { height: 100%; }
 body { margin: 0px;padding: 0px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}

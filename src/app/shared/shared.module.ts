@@ -4,24 +4,34 @@ import { TableComponent } from './table/table.component';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModuleComponent } from './dialog-module/dialog-module.component';
+import { RouterModule } from '@angular/router';
+import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { CustomDatePipe } from './pipes/custom-date.pipe';
+import { ToastComponent } from './toast/toast.component';
 
 
 
 @NgModule({
   declarations: [
     TableComponent,
-    DialogModuleComponent
+    DialogModuleComponent,
+    DeleteModalComponent,
+    CustomDatePipe,
+    ToastComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-  ],
+    RouterModule ,
+        
+],
   exports: [
   MaterialModule,
   TableComponent,
-  DialogModuleComponent
-  
+  DialogModuleComponent,
+  RouterModule,
+  ToastComponent
   ]
 })
 export class SharedModule { }

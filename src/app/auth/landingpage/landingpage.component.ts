@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class LandingpageComponent implements OnInit {
 
   constructor() {
-    console.log("Landing Page Component Loaded");
    }
 
   ngOnInit(): void {

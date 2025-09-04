@@ -1,4 +1,5 @@
-<div class="relative flex flex-col w-auto h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+<div
+    class="relative flex flex-col w-auto h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
     <table class="w-auto text-left table-auto min-w-max">
         <thead>
             <tr>
@@ -22,7 +23,7 @@
                         latest modified
                     </p>
                 </th>
-                <th class="p-4 border-b border-slate-300 bg-slate-50">
+                <th *ngIf="userRole=='2'" class="p-4 border-b border-slate-300 bg-slate-50">
                     <p class="block text-sm font-normal leading-none text-slate-500">
                         Action
                     </p>
@@ -33,43 +34,49 @@
             <tr *ngFor="let user of users" class="hover:bg-slate-50">
                 <td class="p-4 border-b border-slate-200">
                     <p class="block text-sm text-slate-800">
-                        {{ user.name }}
+                        {{ user.userName }}
                     </p>
                 </td>
                 <td class="p-4 border-b border-slate-200">
                     <p class="block text-sm text-slate-800">
-                        {{ user.role }}
+                        {{ user.userRole }}
                     </p>
                 </td>
                 <td class="p-4 border-b border-slate-200">
                     <p class="block text-sm text-slate-800">
-                        {{ user.createdDate }}
+                        {{ user.createdAt | customDate }}
                     </p>
                 </td>
                 <td class="p-4 border-b border-slate-200">
                     <p class="block text-sm text-slate-800">
-                        {{ user.createdDate }}
+                        {{ user.updatedAt | customDate }}
                     </p>
+                    <span>{{user.modifiedBy}}</span>
                 </td>
-                <td class="p-4 border-b border-slate-200">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="editUser(user)">
-                            <mat-icon>edit</mat-icon>
-                            <span>Edit</span>
+                <ng-container *ngIf="userRole === '2'">
+                    <td  class="p-4 border-b border-slate-200">
+                        <button [disabled]="adminUserName === user.userName"  mat-icon-button
+                            [matMenuTriggerFor]="menu"
+                            [matTooltip]="adminUserName === user.userName ? 'Cannot modify own account' : 'User actions'"
+                            aria-label="User actions menu">
+                            <mat-icon>more_vert</mat-icon>
                         </button>
-                        <button mat-menu-item (click)="deleteUser(user)">
-                            <mat-icon>delete</mat-icon>
-                            <span>Delete</span>
-                        </button>
-                    </mat-menu>
-                </td>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="editUser(user)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button mat-menu-item (click)="openDeleteModal(user)">
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
             </tr>
         </tbody>
     </table>
-    <div class="flex justify-end mt-2 p-4">
+    <!-- <div class="flex justify-end mt-2 p-4">
         <nav aria-label="Page navigation example">
             <ul class="flex items-center -space-x-px h-8 text-sm">
                 <li>
@@ -116,5 +123,8 @@
                 </li>
             </ul>
         </nav>
-    </div>
+    </div> -->
 </div>
+<app-delete-modal [isOpen]="deleteModalOpen" [itemName]="selectedUser?.userName" (confirmed)="deleteUser()"
+    (closed)="deleteModalOpen = false">
+</app-delete-modal>
